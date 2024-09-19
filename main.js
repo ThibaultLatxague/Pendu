@@ -1,10 +1,10 @@
-let chaine = ".pied+.portant+.potence+.corde+.tete+.corps+.brasD+.brasG+.jambeD+.jambeG";
+function getInputUtilisateur() {
+    let input = document.getElementById('inputTexte');
+    let motCorrect = false;
 
-// Remplacer tous les points de chaine
-for(let i = 0; i < chaine.length; i++){
-    if(chaine[i] === "."){
-        chaine = chaine.replace(chaine[i], "#");
-    }
+    input.addEventListener('submit', (elt) => {
+        let reponse = elt.target.value;
+    });
 }
 
-console.log(chaine)
+getInputUtilisateur();
