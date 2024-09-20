@@ -45,15 +45,16 @@ function handleRestart() {
 
 function gererInput(reponse) {
     let erreurs = 0;
+    let motSansAccents = mot.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
     // Vérifier une lettre unique
-    if (mot.includes(reponse) && reponse.length === 1) {
+    if (motSansAccents.includes(reponse) && reponse.length === 1) {
         //On affiche la lettre dans le mot
         metAJourMot(reponse);
     } 
 
     // Vérifier si le mot COMPLET est trouvé
-    else if (reponse == mot) {
+    else if (reponse == mot || reponse == motSansAccents) {
         motEstTrouve();
     } 
 
