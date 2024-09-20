@@ -45,8 +45,6 @@ function handleRestart() {
 
 function gererInput(reponse) {
     let erreurs = 0;
-    console.log("gererInput : " + mot);
-    console.log("Type de mot : " + typeof(mot));
 
     // Vérifier une lettre unique
     if (mot.includes(reponse) && reponse.length === 1) {
@@ -88,14 +86,11 @@ function metAJourMot(lettre) {
         const elementHTML = motHTML[i];
         
         if (element == lettre) {
-            console.log("Lettre trouvée à la position : " + i);
             motHTML[i] = element; // Modifier l'élément dans le tableau
         } else if (motHTML[i] == '_') {
             compteur_ ++;
         }
     }
-
-    console.log("Compteur de _ : " + compteur_);
 
     if (compteur_ == 0) {
         motEstTrouve();
