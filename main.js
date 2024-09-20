@@ -56,10 +56,7 @@ function gererInput(reponse) {
 
     // Vérifier si le mot COMPLET est trouvé
     else if (reponse == mot) {
-        input.disabled = true;
-        input.placeholder = 'Mot trouvé !';
-        input.classList.add('success');
-        motAffiche.textContent = mot;
+        motEstTrouve();
     } 
 
     // Si rien n'est trouvé
@@ -75,16 +72,33 @@ function gererInput(reponse) {
     }
 }
 
+function motEstTrouve() {
+    input.disabled = true;
+        input.placeholder = 'Mot trouvé !';
+        input.classList.add('success');
+        motAffiche.textContent = mot;
+}
+
 function metAJourMot(lettre) {
     let motHTML = motAffiche.textContent.split(''); // Convertir la chaîne en tableau pour modification
+    let compteur_ = 0;
 
     for (let i = 0; i < mot.length; i++) {
         const element = mot[i];
+        const elementHTML = motHTML[i];
         
         if (element == lettre) {
             console.log("Lettre trouvée à la position : " + i);
             motHTML[i] = element; // Modifier l'élément dans le tableau
+        } else if (motHTML[i] == '_') {
+            compteur_ ++;
         }
+    }
+
+    console.log("Compteur de _ : " + compteur_);
+
+    if (compteur_ == 0) {
+        motEstTrouve();
     }
 
     motAffiche.textContent = motHTML.join(''); // Reconvertir le tableau en chaîne et mettre à jour l'affichage
