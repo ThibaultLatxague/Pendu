@@ -2,8 +2,8 @@ let boutonRestart = document.getElementById('restart'); //Get le bouton restart
 let form = document.getElementById('formElement'); //Get le forumlaire
 let input = document.getElementById('inputTexte'); //Get l'input utilisateur
 let listeTentees = document.getElementById('ulLettresTentees'); //Get la liste des lettre essayées
-let listeTrouvees = document.getElementById('ulLettresTrouvees'); //Get la liste des lettre trouvees
 let motAffiche = document.getElementById('wordToFind'); //Get l'elt qui affiche le mot généré
+let mot = '';
 
 boutonRestart.addEventListener('click', () =>{
     handleRestart();
@@ -14,9 +14,9 @@ getInputUtilisateur();
 let formListenerAdded = false; // Ajout d'une variable pour suivre l'ajout de l'écouteur
 
 async function getInputUtilisateur() {
-    let mot = await generationMot();
-    motAffiche.textContent = mot;
-    mot = motAffiche.textContent;
+    mot = await generationMot();
+    afficheExtremitesMot(mot);
+    console.log(mot);
 
     // On vérifie si l'écouteur a déjà été ajouté pour éviter la duplication
     if (!formListenerAdded) {
@@ -40,23 +40,18 @@ function handleRestart() {
         listeTentees.removeChild(listeTentees.firstChild);
     };
 
-    while (listeTrouvees.firstChild) {
-        listeTrouvees.removeChild(listeTrouvees.firstChild);
-    };
-
     getInputUtilisateur(); //On redémarre le processus : génération de mot etc
 }
 
 function gererInput(reponse) {
-    mot = motAffiche.textContent;
     let erreurs = 0;
-    console.log("Fonction gererInput mot : " + mot);
+    console.log("gererInput : " + mot);
+    console.log("Type de mot : " + typeof(mot));
 
     // Vérifier une lettre unique
     if (mot.includes(reponse) && reponse.length === 1) {
-        let li = document.createElement('li');
-        li.textContent = reponse;
-        listeTrouvees.appendChild(li);
+        //On affiche la lettre dans le mot
+        metAJourMot(reponse);
     } 
 
     // Vérifier si le mot COMPLET est trouvé
@@ -72,10 +67,47 @@ function gererInput(reponse) {
         if (erreurs == 10) {
             input.disabled = true;
         }
+
         let li = document.createElement('li');
         li.textContent = reponse;
         listeTentees.appendChild(li);
     }
+}
+
+function metAJourMot(lettre) {
+    let motHTML = motAffiche.textContent.split(''); // Convertir la chaîne en tableau pour modification
+
+    for (let i = 0; i < mot.length; i++) {
+        const element = mot[i];
+        
+        if (element == lettre) {
+            console.log("Lettre trouvée à la position : " + i);
+            motHTML[i] = element; // Modifier l'élément dans le tableau
+        }
+    }
+
+    motAffiche.textContent = motHTML.join(''); // Reconvertir le tableau en chaîne et mettre à jour l'affichage
+}
+
+
+function afficheExtremitesMot(mot) {
+    let motSecret = '';
+
+    for (let i = 0; i < mot.length; i++) {
+        const element = mot[i];
+        
+        if (i == 0 || i == mot.length - 1) {
+            motSecret += element;
+        } else {
+            motSecret += '_';
+        }
+    }
+
+    motAffiche.textContent = motSecret;
+}
+
+function ajouterEspaces() {
+    
 }
 
 async function generationMot() {
