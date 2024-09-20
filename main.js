@@ -4,6 +4,7 @@ let input = document.getElementById('inputTexte'); //Get l'input utilisateur
 let listeTentees = document.getElementById('ulLettresTentees'); //Get la liste des lettre essayées
 let motAffiche = document.getElementById('wordToFind'); //Get l'elt qui affiche le mot généré
 let nombreLettresAffichees = document.getElementById('nbrLettres');
+let motCache = document.getElementById('wordToFindHidden');
 let mot = '';
 
 boutonRestart.addEventListener('click', () =>{
@@ -45,8 +46,9 @@ function handleRestart() {
 }
 
 function gererInput(reponse) {
+    ajouterEspaces();
     let erreurs = 0;
-    let motSansAccents = mot.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    let motSansAccents = mot.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     // Vérifier une lettre unique
     if (motSansAccents.includes(reponse) && reponse.length === 1) {
@@ -70,6 +72,8 @@ function gererInput(reponse) {
         li.textContent = reponse;
         listeTentees.appendChild(li);
     }
+
+    ajouterEspaces();
 }
 
 function motEstTrouve() {
@@ -116,10 +120,21 @@ function afficheExtremitesMot(mot) {
     }
 
     motAffiche.textContent = motSecret;
+    motCache.textContent = motSecret;
+    ajouterEspaces();
 }
 
 function ajouterEspaces() {
+    let motSansEspaces = motAffiche.textContent;
+    let motAvecEspaces = '';
     
+    for (let i = 0; i < motSansEspaces.length; i++) {
+        const element = motSansEspaces[i];
+        motAvecEspaces += element + ' ';
+    }
+
+    console.log(motAvecEspaces);
+    motCache.textContent = motAvecEspaces;
 }
 
 async function generationMot() {
