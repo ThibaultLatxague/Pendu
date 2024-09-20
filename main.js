@@ -59,6 +59,7 @@ function gererInput(reponse) {
         input.disabled = true;
         input.placeholder = 'Mot trouvé !';
         input.classList.add('success');
+        motAffiche.textContent = mot;
     } 
 
     // Si rien n'est trouvé
