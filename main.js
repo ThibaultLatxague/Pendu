@@ -18,16 +18,22 @@ function gererInput(reponse, mot) {
     let liste = document.getElementById('ulLettres');
     let erreurs = 0;
 
+    // Vérifier une lettre unique
     if (mot.includes(reponse) && reponse.length === 1) {
         let li = document.createElement('li');
         li.textContent = reponse;
         liste.appendChild(li);
         console.log('comprend la lettre !');
-    } else if (reponse == mot) {
+    } 
+    // Vérifier si le mot COMPLET est trouvé
+    else if (reponse == mot) {
         console.log(mot + " a été trouvé !");
         input.disabled = true;
         input.placeholder = 'Mot trouvé !';
-    } else {
+        input.classList.add('success');
+    } 
+    // Si rien n'est trouvé
+    else {
         erreurs ++;
         console.log("Nombre d'erreurs : " + erreurs);
         if (erreurs == 10) {

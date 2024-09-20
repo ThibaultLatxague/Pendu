@@ -75,6 +75,15 @@ main{
         border-radius: 7px;
         border: 1px solid black;
     }
+
+    .success{
+        border-color : green;
+        border-width: 3px;
+
+        /* Placeholder */
+        color: green;
+        font-weight: 800;
+    }
 }
 
 #ulLettres{
