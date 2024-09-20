@@ -6,6 +6,7 @@ function getInputUtilisateur() {
         event.preventDefault(); // Prevent the form from refreshing the page
         let reponse = input.value.trim().toLowerCase(); // Get and format the input value
         gererInput(reponse); // Call your handling function
+        input.value="";
     });
 }
 
