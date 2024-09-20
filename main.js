@@ -10,8 +10,9 @@ boutonRestart.addEventListener('click', () =>{
 getInputUtilisateur();
 
 
-function getInputUtilisateur() {
-    let mot = generationMot();
+async function getInputUtilisateur() {
+    let mot = await generationMot();
+    console.log(mot);
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // empeche le formulaire de recharger la page
         let reponse = input.value.trim().toLowerCase(); // réponse en minuscule
@@ -28,7 +29,7 @@ function handleRestart() {
     //Suppression de tous les enfants tant qu'il y en a un
     while (liste.firstChild) {
         liste.removeChild(liste.firstChild);
-    }
+    };
 }
 
 function gererInput(reponse, mot) {
@@ -60,17 +61,15 @@ function gererInput(reponse, mot) {
     console.log("Taille du mot : " + reponse.length);
 }
 
-function generationMot() {
-    fetch('mots.json')
-    .then(response => response.json())
-    .then(data => {
-        // Sélectionner un mot aléatoirement dans le tableau
+async function generationMot() {
+    try {
+        const response = await fetch('mots.json');
+        const data = await response.json();
         const mots = data.mots;
         const motATrouver = mots[Math.floor(Math.random() * mots.length)];
-        
-        // Afficher le mot sélectionné
-        return motATrouver;
-    })
-    
-    .catch(error => console.error('Erreur de chargement du fichier JSON:', error));
+        console.log(motATrouver); // Afficher le mot sélectionné
+        return motATrouver; // Retourner le mot
+    } catch (error) {
+        console.error('Erreur de chargement du fichier JSON:', error);
+    }
 }
