@@ -3,6 +3,7 @@ let form = document.getElementById('formElement'); //Get le forumlaire
 let input = document.getElementById('inputTexte'); //Get l'input utilisateur
 let listeTentees = document.getElementById('ulLettresTentees'); //Get la liste des lettre essayées
 let motAffiche = document.getElementById('wordToFind'); //Get l'elt qui affiche le mot généré
+let nombreLettresAffichees = document.getElementById('nbrLettres');
 let mot = '';
 
 boutonRestart.addEventListener('click', () =>{
@@ -127,6 +128,7 @@ async function generationMot() {
         const data = await response.json();
         const mots = data.mots;
         const motATrouver = mots[Math.floor(Math.random() * mots.length)];
+        nombreLettresAffichees.textContent = '(' + motATrouver.length + " lettres)";
         return motATrouver; // Retourner le mot
     } catch (error) {
         console.error('Erreur de chargement du fichier JSON:', error);
