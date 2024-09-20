@@ -1,8 +1,16 @@
-function getInputUtilisateur() {
-    let form = document.getElementById('formElement'); // get le form
-    let input = document.getElementById('inputTexte'); // get l'input
-    let mot = generationMot();
+let boutonRestart = document.getElementById('restart');
+let form = document.getElementById('formElement'); // get le form
+let input = document.getElementById('inputTexte'); // get l'input
 
+boutonRestart.addEventListener('click', () =>{
+    handleRestart();
+});
+
+getInputUtilisateur();
+
+
+function getInputUtilisateur() {
+    let mot = generationMot();
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // empeche le formulaire de recharger la page
         let reponse = input.value.trim().toLowerCase(); // réponse en minuscule
@@ -11,10 +19,11 @@ function getInputUtilisateur() {
     });
 }
 
-getInputUtilisateur();
+function handleRestart() {
+    
+}
 
 function gererInput(reponse, mot) {
-    let input = document.getElementById('inputTexte'); // get l'input
     let liste = document.getElementById('ulLettres');
     let erreurs = 0;
 
