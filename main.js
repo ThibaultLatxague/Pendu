@@ -2,6 +2,7 @@ let boutonRestart = document.getElementById('restart');
 let form = document.getElementById('formElement'); // get le form
 let input = document.getElementById('inputTexte'); // get l'input
 let liste = document.getElementById('ulLettres');
+let motAffiche = document.getElementById('wordToFind');
 
 boutonRestart.addEventListener('click', () =>{
     handleRestart();
@@ -9,17 +10,23 @@ boutonRestart.addEventListener('click', () =>{
 
 getInputUtilisateur();
 
+let formListenerAdded = false; // Ajout d'une variable pour suivre l'ajout de l'écouteur
+
 async function getInputUtilisateur() {
     let mot = await generationMot();
+    motAffiche.textContent = mot;
+    mot = motAffiche.textContent;
 
-    //On attend le clic sur le sumbit
-    form.addEventListener('submit', (event) => {
-        event.preventDefault(); // empeche le formulaire de recharger la page
-        let reponse = input.value.trim().toLowerCase(); // réponse en minuscule
-        input.value=""; // on clear l'input pour pouvoir entrer du texte directement
-        console.log('Affichage mot adns getInputUtilisateur : ' + mot);
-        gererInput(reponse, mot); // appel de la fonction qui gere le résultat de l'input
-    });
+    // On vérifie si l'écouteur a déjà été ajouté pour éviter la duplication
+    if (!formListenerAdded) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Empêche le rechargement de la page
+            let reponse = input.value.trim().toLowerCase(); // Réponse en minuscule
+            input.value = ""; // On clear l'input
+            gererInput(reponse); // Appel de la fonction qui gère le résultat de l'input
+        });
+        formListenerAdded = true; // Marquer l'écouteur comme ajouté
+    }
 }
 
 function handleRestart() {
@@ -35,7 +42,8 @@ function handleRestart() {
     getInputUtilisateur(); //On redémarre le processus : génération de mot etc
 }
 
-function gererInput(reponse, mot) {
+function gererInput(reponse) {
+    mot = motAffiche.textContent;
     let changement = true;
     let erreurs = 0;
     console.log("Fonction gererInput mot : " + mot);
