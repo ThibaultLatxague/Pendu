@@ -19,9 +19,15 @@ function getInputUtilisateur() {
 getInputUtilisateur();
 
 function gererInput(reponse, mot) {
+    let liste = document.getElementById('ulLettres');
     let trouve = false;
 
-    if (reponse === mot) {
+    if (mot.includes(reponse)) {
+        let li = document.createElement('li');
+        li.textContent = reponse;
+        liste.appendChild(li);
+        console.log('comprend la lettre !');
+    } else if (reponse === mot) {
         console.log(mot + " a été trouvé !");
         trouve = true;
     }

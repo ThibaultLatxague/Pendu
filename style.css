@@ -76,3 +76,19 @@ main{
         border: 1px solid black;
     }
 }
+
+#ulLettres{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+    li{
+        color: black;
+        font-size: 20px;
+        padding: 5px;
+    }
+}
