@@ -1,6 +1,7 @@
 let boutonRestart = document.getElementById('restart');
 let form = document.getElementById('formElement'); // get le form
 let input = document.getElementById('inputTexte'); // get l'input
+let liste = document.getElementById('ulLettres');
 
 boutonRestart.addEventListener('click', () =>{
     handleRestart();
@@ -20,11 +21,16 @@ function getInputUtilisateur() {
 }
 
 function handleRestart() {
+    input.disabled = false;
+    input.placeholder = 'Entrez un mot ou caractère...';
+    input.classList.remove('success');
     
+    liste.childNodes.forEach(children => {
+        children.remove();
+    });
 }
 
 function gererInput(reponse, mot) {
-    let liste = document.getElementById('ulLettres');
     let erreurs = 0;
 
     // Vérifier une lettre unique
