@@ -24,10 +24,18 @@ function handleRestart() {
     input.disabled = false;
     input.placeholder = 'Entrez un mot ou caractère...';
     input.classList.remove('success');
+
+    console.log(liste.childElementCount);
+
+    for (let i = 0; i < liste.childElementCount; i++) {
+        const element = liste.childNodes[i];
+        element.remove();
+    }
     
+    /*
     liste.childNodes.forEach(children => {
         children.remove();
-    });
+    });*/
 }
 
 function gererInput(reponse, mot) {
