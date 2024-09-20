@@ -25,17 +25,10 @@ function handleRestart() {
     input.placeholder = 'Entrez un mot ou caractère...';
     input.classList.remove('success');
 
-    console.log(liste.childElementCount);
-
-    for (let i = 0; i < liste.childElementCount; i++) {
-        const element = liste.childNodes[i];
-        element.remove();
+    //Suppression de tous les enfants tant qu'il y en a un
+    while (liste.firstChild) {
+        liste.removeChild(liste.firstChild);
     }
-    
-    /*
-    liste.childNodes.forEach(children => {
-        children.remove();
-    });*/
 }
 
 function gererInput(reponse, mot) {
@@ -71,14 +64,13 @@ function generationMot() {
     fetch('mots.json')
     .then(response => response.json())
     .then(data => {
-      // Sélectionner un mot aléatoirement dans le tableau
-      const mots = data.mots;
-      const motATrouver = mots[Math.floor(Math.random() * mots.length)];
-      
-      // Afficher le mot sélectionné
-      return motATrouver;
+        // Sélectionner un mot aléatoirement dans le tableau
+        const mots = data.mots;
+        const motATrouver = mots[Math.floor(Math.random() * mots.length)];
+        
+        // Afficher le mot sélectionné
+        return motATrouver;
     })
-    .catch(error => console.error('Erreur de chargement du fichier JSON:', error));
-
     
+    .catch(error => console.error('Erreur de chargement du fichier JSON:', error));
 }
