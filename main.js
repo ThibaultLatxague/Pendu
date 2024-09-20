@@ -60,6 +60,17 @@ function gererInput(reponse, mot) {
 }
 
 function generationMot() {
-    let motATrouver = 'boule';
-    return motATrouver;
+    fetch('mots.json')
+    .then(response => response.json())
+    .then(data => {
+      // Sélectionner un mot aléatoirement dans le tableau
+      const mots = data.mots;
+      const motATrouver = mots[Math.floor(Math.random() * mots.length)];
+      
+      // Afficher le mot sélectionné
+      return motATrouver;
+    })
+    .catch(error => console.error('Erreur de chargement du fichier JSON:', error));
+
+    
 }
