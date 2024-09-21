@@ -6,6 +6,7 @@ let nombreLettresAffichees = document.getElementById('nbrLettres');
 let motCache = document.getElementById('wordToFindHidden');
 let mot = '';
 let erreurs = document.getElementById('nbrMauvais');
+let image = document.getElementById('pendu');
 
 boutonRestart.addEventListener('click', () =>{
     handleRestart(); //A chaque clique, on déclenche la fonction
@@ -38,6 +39,8 @@ function handleRestart() {
     input.disabled = false; //On réactive le bouton in case
     input.placeholder = 'Entrez un mot ou caractère...'; //On remet le placeholder de base ------ Aucun changement si sélectionné
     input.classList.remove('success'); //On repasse au style de base CSS
+    input.classList.remove('defeat'); //On repasse au style de base CSS
+    image.src = '../Images/pendu0.png';
 
     //Suppression de tous les enfants tant qu'il y en a un
     while (listeTentees.firstChild) {
@@ -73,10 +76,14 @@ function gestionErreurs(reponse) {
     erreursNoHTML = parseInt(erreurs.textContent);
     erreursNoHTML ++;
 
-    if (erreursNoHTML == 10) {
+    if (erreursNoHTML == 11) {
         //Si le max d'erreurs a été atteint, on désactive la saisie
         input.disabled = true;
+        input.placeholder = 'Mot non trouvé ...'; //On change le placeholder pour un truc zouli
+        input.classList.add('defeat');
     }
+
+    image.src = '../Images/pendu' + erreursNoHTML + '.png';
 
     //On créé l'elt liste qu'on affichera ensuite
     let li = document.createElement('li');

@@ -84,6 +84,15 @@ main{
         color: green;
         font-weight: 800;
     }
+    
+    .defeat{
+        border-color : rgb(233, 20, 20);
+        border-width: 3px;
+
+        /* Placeholder */
+        color: rgb(233, 20, 20);
+        font-weight: 800;
+    }
 }
 
 #ulLettresTrouvees, #ulLettresTentees{
