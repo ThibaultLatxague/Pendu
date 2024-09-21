@@ -65,6 +65,10 @@ main{
     flex-direction: row;
 }
 
+#pendu{
+    max-width: max-content;
+}
+
 #formElement{
     display: flex;
     flex-direction: column;
