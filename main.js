@@ -5,7 +5,7 @@ let motAffiche = document.getElementById('wordToFind'); //Get l'elt qui affiche 
 let nombreLettresAffichees = document.getElementById('nbrLettres');
 let motCache = document.getElementById('wordToFindHidden');
 let mot = '';
-let erreurs = 0;
+let erreurs = document.getElementById('nbrMauvais');
 
 boutonRestart.addEventListener('click', () =>{
     handleRestart(); //A chaque clique, on déclenche la fonction
@@ -48,8 +48,6 @@ function handleRestart() {
 }
 
 function gererInput(reponse) {
-    //ajouterEspaces();
-    let erreurs = 0; //On compte le nombre d'erreurs pour notre image
     let motSansAccents = mot.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); //NON FONCTIONNEL gère les accents
 
     // Vérifier une lettre unique
@@ -65,19 +63,26 @@ function gererInput(reponse) {
 
     // Si rien n'est trouvé
     else {
-        erreurs ++;
-        if (erreurs == 10) {
-            //Si le max d'erreurs a été atteint, on désactive la saisie
-            input.disabled = true;
-        }
-
-        //On créé l'elt liste qu'on affichera ensuite
-        let li = document.createElement('li');
-        li.textContent = reponse;
-        listeTentees.appendChild(li);
+        gestionErreurs(reponse);
     }
 
     ajouterEspaces();
+}
+
+function gestionErreurs(reponse) {
+    erreursNoHTML = parseInt(erreurs.textContent);
+    erreursNoHTML ++;
+
+    if (erreursNoHTML == 10) {
+        //Si le max d'erreurs a été atteint, on désactive la saisie
+        input.disabled = true;
+    }
+
+    //On créé l'elt liste qu'on affichera ensuite
+    let li = document.createElement('li');
+    li.textContent = reponse;
+    listeTentees.appendChild(li);
+    erreurs.textContent = erreursNoHTML;
 }
 
 function motEstTrouve() {
